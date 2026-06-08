@@ -1,5 +1,5 @@
 /*
-Copyright © 2026 Chris Capobianco <contact@chriscapobianco.com>
+Copyright © 2026 Chris Capobianco
 */
 package main
 

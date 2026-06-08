@@ -1,5 +1,5 @@
 /*
-Copyright © 2026 Chris Capobianco <contact@chriscapobianco.com>
+Copyright © 2026 Chris Capobianco
 */
 package cmd
 
@@ -65,7 +65,7 @@ func initializeConfig(cmd *cobra.Command) error {
 	// 1. Set up Viper to use environment variables.
 	viper.SetEnvPrefix("SERVER")
 
-	// Allow for nested keys in environment variables (e.g. `MYAPP_DATABASE_HOST`)
+	// Allow for nested keys in environment variables (e.g. `SERVER_DATABASE_HOST`)
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "*", "-", "*"))
 	viper.AutomaticEnv()
 
