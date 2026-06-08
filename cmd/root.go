@@ -4,7 +4,6 @@ Copyright © 2026 Chris Capobianco
 package cmd
 
 import (
-	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -12,9 +11,6 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
-
-// Used for flags.
-var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -66,24 +62,7 @@ func initializeConfig(cmd *cobra.Command) error {
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "*", "-", "*"))
 	viper.AutomaticEnv()
 
-	// 2. Handle the configuration file.
-	if cfgFile != "" {
-		// Use config file from the flag.
-		viper.SetConfigFile(cfgFile)
-	}
-
-	// 3. Read the configuration file.
-	// If a config file is found, read it in. We use a robust error check
-	// to ignore "file not found" errors, but panic on any other error.
-	if err := viper.ReadInConfig(); err != nil {
-		// It's okay if the config file doesn't exist.
-		var configFileNotFoundError viper.ConfigFileNotFoundError
-		if !errors.As(err, &configFileNotFoundError) {
-			return err
-		}
-	}
-
-	// 4. Bind Cobra flags to Viper.
+	// 2. Bind Cobra flags to Viper.
 	// This is the magic that makes the flag values available through Viper.
 	// It binds the full flag set of the command passed in.
 	err := viper.BindPFlags(cmd.Flags())
@@ -92,6 +71,6 @@ func initializeConfig(cmd *cobra.Command) error {
 	}
 
 	// This is an optional but useful step to debug your config.
-	fmt.Println("Configuration initialized.")
+	fmt.Println("Configuration initialized")
 	return nil
 }
