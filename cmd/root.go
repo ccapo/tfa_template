@@ -53,12 +53,9 @@ func init() {
 
 	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.tfa_template.yaml)")
 
-	// Add the persistent --config flag to the root command.
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.server.yaml)")
-
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 func initializeConfig(cmd *cobra.Command) error {
@@ -73,17 +70,6 @@ func initializeConfig(cmd *cobra.Command) error {
 	if cfgFile != "" {
 		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)
-	} else {
-		// Search for a config file in default locations.
-		home, err := os.UserHomeDir()
-		// Only panic if we can't get the home directory.
-		cobra.CheckErr(err)
-
-		// Search for a config file with the name "config" (without extension).
-		viper.AddConfigPath(".")
-		viper.AddConfigPath(home + "/.server")
-		viper.SetConfigName("config")
-		viper.SetConfigType("yaml")
 	}
 
 	// 3. Read the configuration file.
@@ -106,6 +92,6 @@ func initializeConfig(cmd *cobra.Command) error {
 	}
 
 	// This is an optional but useful step to debug your config.
-	fmt.Println("Configuration initialized. Using config file:", viper.ConfigFileUsed())
+	fmt.Println("Configuration initialized.")
 	return nil
 }
